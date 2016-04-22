@@ -74,7 +74,7 @@ public class HotNewsAdapter extends BaseAdapter {
 
 
     public class ViewHolder {
-
+                 
         public NetworkImageView newsImage;
         public TextView newsTitle, newsLitleTitle, newsAuthor, newsCommentCount;
     }
