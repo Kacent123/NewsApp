@@ -32,6 +32,7 @@ public class HotNewsFragment extends Fragment {
     public JSONObject mjsonObject;
 
     public ListView listView;
+    public  static  RequestQueue mQueue;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class HotNewsFragment extends Fragment {
 /*
         listView = (ListView) inflater.inflate(R.id.hotnews_listview, null);
 */
-        RequestQueue mQueue = netWorkRequest.getQueue(getContext());
+        mQueue = netWorkRequest.getQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL,null,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject jsonObject) {
