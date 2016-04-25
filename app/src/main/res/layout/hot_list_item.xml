@@ -6,11 +6,18 @@
     android:orientation="horizontal">
 
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/news_image"
-        android:layout_width="130dp"
-        android:layout_height="120dp"
-        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/news_image"
+            android:layout_width="130dp"
+            android:layout_height="80dp"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,7 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             >
 
@@ -63,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="120dp"
             >
 
