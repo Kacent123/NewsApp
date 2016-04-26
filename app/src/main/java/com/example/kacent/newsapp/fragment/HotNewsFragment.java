@@ -1,5 +1,6 @@
 package com.example.kacent.newsapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.kacent.newsapp.R;
 import com.example.kacent.newsapp.adapter.HotNewsAdapter;
 import com.example.kacent.newsapp.bean.HotNews;
+import com.example.kacent.newsapp.ui.WebActivity;
 import com.example.kacent.newsapp.utils.NetWorkRequest;
 
 import org.json.JSONException;
@@ -54,13 +56,7 @@ public class HotNewsFragment extends Fragment {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
                     HotNewsAdapter adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            HotNews hotNews = hotNewsList.get(position);
-                            Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
-                        }
-                    });
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -73,6 +69,24 @@ public class HotNewsFragment extends Fragment {
         });
         mQueue.add(jsonObjectRequest);
 
+
+        new Thread(){
+
+            @Override
+            public void run() {
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        HotNews hotNews = hotNewsList.get(position);
+                Intent intent = new Intent(getContext(),WebActivity.class);
+
+                startActivity(intent);
+                        Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
+                    }
+                });
+            }
+        }.run();
 
         return view;
     }
