@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -32,6 +33,7 @@ public class HotNewsFragment extends Fragment {
     public JSONObject mjsonObject;
 
     public ListView listView;
+    public  static  RequestQueue mQueue;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class HotNewsFragment extends Fragment {
 /*
         listView = (ListView) inflater.inflate(R.id.hotnews_listview, null);
 */
-        RequestQueue mQueue = netWorkRequest.getQueue(getContext());
+        mQueue = netWorkRequest.getQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL,null,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject jsonObject) {
@@ -52,6 +54,13 @@ public class HotNewsFragment extends Fragment {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
                     HotNewsAdapter adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            HotNews hotNews = hotNewsList.get(position);
+                            Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
