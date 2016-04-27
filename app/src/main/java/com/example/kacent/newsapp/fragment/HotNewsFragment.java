@@ -1,5 +1,6 @@
 package com.example.kacent.newsapp.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Kacent on 2016/4/18.
@@ -34,7 +38,8 @@ public class HotNewsFragment extends Fragment {
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
 
-    public ListView listView;
+
+public ListView listView;
     public  static  RequestQueue mQueue;
     @Nullable
     @Override
@@ -42,6 +47,7 @@ public class HotNewsFragment extends Fragment {
 
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         View view=inflater.inflate(R.layout.hot_news, container, false);
+        /*ButterKnife.bind((Activity) getContext());*/
         listView= (ListView) view.findViewById(R.id.hotnews_listview);
 /*
         listView = (ListView) inflater.inflate(R.id.hotnews_listview, null);
@@ -74,6 +80,7 @@ public class HotNewsFragment extends Fragment {
 
             @Override
             public void run() {
+
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
