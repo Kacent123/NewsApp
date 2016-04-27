@@ -23,6 +23,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile files('G:/BigProject/NewsApp/lib/butterknife-7.0.1.jar')
-    compile files('G:/BigProject/NewsApp/lib/Volley.jar')
+    compile files('K:/NewsApp/lib/butterknife-7.0.1.jar')
+    compile files('K:/NewsApp/lib/Volley.jar')
 }

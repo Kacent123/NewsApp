@@ -1,7 +1,9 @@
 package com.example.kacent.newsapp.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -22,16 +24,14 @@ public class WebActivity  extends Activity{
     WebView webView;
     @Bind(R.id.webView_progressbar)
     ProgressBar bar;
-    private String url;
-    public WebActivity(String url) {
-        this.url = url;
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_activity);
         ButterKnife.bind(this);
-        webView.loadUrl(url);
+
+        webView.loadUrl("http://i.jandan.net/2016/04/27/decorating-bananas.html");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             @Override
@@ -56,5 +56,10 @@ public class WebActivity  extends Activity{
                 super.onProgressChanged(view, newProgress);
             }
         });
+    }
+
+
+    public void loadWebView() {
+
     }
 }

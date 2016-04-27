@@ -55,7 +55,6 @@ public ListView listView;
 
 
     public void initView() {
-
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL,null,new Response.Listener<JSONObject>(){
@@ -91,8 +90,9 @@ public ListView listView;
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         HotNews hotNews = hotNewsList.get(position);
                         String url = hotNews.getCoomentUrl();
-                        WebActivity webActivity = new WebActivity(url);
-                        Intent intent = new Intent(getContext(),webActivity.getClass());
+
+                        Intent intent = new Intent(getContext(),WebActivity.class);
+                        /*intent.putExtra("url", url);*/
 
                         startActivity(intent);
                         Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
