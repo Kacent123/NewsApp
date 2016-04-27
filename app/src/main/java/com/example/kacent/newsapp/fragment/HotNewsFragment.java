@@ -41,22 +41,26 @@ public class HotNewsFragment extends Fragment {
 
 public ListView listView;
     public  static  RequestQueue mQueue;
+    public View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        NetWorkRequest netWorkRequest = new NetWorkRequest();
-        View view=inflater.inflate(R.layout.hot_news, container, false);
-        /*ButterKnife.bind((Activity) getContext());*/
+
+         view=inflater.inflate(R.layout.hot_news, container, false);
         listView= (ListView) view.findViewById(R.id.hotnews_listview);
-/*
-        listView = (ListView) inflater.inflate(R.id.hotnews_listview, null);
-*/
+        initView();
+        return view;
+    }
+
+
+    public void initView() {
+
+        NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL,null,new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject jsonObject) {
-                Log.i("newwork", jsonObject.toString());
                 mjsonObject = jsonObject;
                 try {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
@@ -86,15 +90,15 @@ public ListView listView;
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         HotNews hotNews = hotNewsList.get(position);
-                Intent intent = new Intent(getContext(),WebActivity.class);
+                        String url = hotNews.getCoomentUrl();
+                        WebActivity webActivity = new WebActivity(url);
+                        Intent intent = new Intent(getContext(),webActivity.getClass());
 
-                startActivity(intent);
+                        startActivity(intent);
                         Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
                     }
                 });
             }
         }.run();
-
-        return view;
     }
 }

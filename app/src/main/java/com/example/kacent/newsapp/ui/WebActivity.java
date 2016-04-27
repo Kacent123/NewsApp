@@ -22,12 +22,16 @@ public class WebActivity  extends Activity{
     WebView webView;
     @Bind(R.id.webView_progressbar)
     ProgressBar bar;
+    private String url;
+    public WebActivity(String url) {
+        this.url = url;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_activity);
         ButterKnife.bind(this);
-        webView.loadUrl("http://www.baidu.com");
+        webView.loadUrl(url);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             @Override
