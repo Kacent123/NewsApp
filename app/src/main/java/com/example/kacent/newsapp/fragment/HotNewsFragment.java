@@ -1,11 +1,9 @@
 package com.example.kacent.newsapp.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +18,13 @@ import com.example.kacent.newsapp.R;
 import com.example.kacent.newsapp.adapter.HotNewsAdapter;
 import com.example.kacent.newsapp.bean.HotNews;
 import com.example.kacent.newsapp.ui.WebActivity;
+import com.example.kacent.newsapp.utils.Config;
 import com.example.kacent.newsapp.utils.NetWorkRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -37,19 +33,21 @@ import butterknife.ButterKnife;
 public class HotNewsFragment extends Fragment {
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
+    public static Intent intent;
 
-
-public ListView listView;
-    public  static  RequestQueue mQueue;
+    public ListView listView;
+    public static RequestQueue mQueue;
     public View view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-         view=inflater.inflate(R.layout.hot_news, container, false);
-        listView= (ListView) view.findViewById(R.id.hotnews_listview);
+        view = inflater.inflate(R.layout.hot_news, container, false);
+        listView = (ListView) view.findViewById(R.id.hotnews_listview);
         initView();
+
         return view;
     }
 
@@ -58,7 +56,8 @@ public ListView listView;
 
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL,null,new Response.Listener<JSONObject>(){
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 mjsonObject = jsonObject;
@@ -67,11 +66,12 @@ public ListView listView;
                     HotNewsAdapter adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
 
+                    itemtOnClick();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        },new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
@@ -79,26 +79,21 @@ public ListView listView;
         });
         mQueue.add(jsonObjectRequest);
 
-
-        new Thread(){
-
-            @Override
-            public void run() {
-
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        HotNews hotNews = hotNewsList.get(position);
-                        String url = hotNews.getCoomentUrl();
-                        WebActivity webActivity = new WebActivity(url);
-                        Intent intent = new Intent(getContext(),webActivity.getClass());
-
-                        startActivity(intent);
-                        Log.i("web", "位置：+"+position+"地址" + hotNews.getCoomentUrl()+"");
-                    }
-                });
-            }
-        }.run();
     }
+
+
+    public void itemtOnClick() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HotNews hotNews = hotNewsList.get(position);
+                String url = hotNews.getCoomentUrl();
+
+                Config.intent = new Intent(getContext(), WebActivity.class);
+                Config.intent.putExtra("url", url);
+                startActivity(Config.intent);
+            }
+        });
+    }
+
 }
