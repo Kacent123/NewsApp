@@ -33,8 +33,6 @@ import java.util.ArrayList;
 public class HotNewsFragment extends Fragment {
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
-    public static Intent intent;
-
     public ListView listView;
     public static RequestQueue mQueue;
     public View view;
