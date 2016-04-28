@@ -24,6 +24,8 @@ public class MainActivity extends FragmentActivity {
     ViewPager viewPager;
     private List<Fragment> listFramgnet;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
