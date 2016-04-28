@@ -41,6 +41,5 @@ public class BitmapCache extends LruCache<String, Bitmap> implements ImageLoader
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
         put(url, bitmap);
-        Log.i("tag", "提取缓存中");
     }
 }
