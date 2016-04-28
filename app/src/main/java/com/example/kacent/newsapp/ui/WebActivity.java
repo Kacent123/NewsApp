@@ -1,7 +1,9 @@
 package com.example.kacent.newsapp.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -32,12 +34,14 @@ public class WebActivity extends Activity {
         ButterKnife.bind(this);
 
 
+
         //获取hotnew 发送的url
         Bundle extras =  Config.intent.getExtras();
         String ur1 = (String) extras.get("url");
 
 
         webView.loadUrl(ur1);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -64,6 +68,7 @@ public class WebActivity extends Activity {
             }
         });
     }
+
 
 
 }

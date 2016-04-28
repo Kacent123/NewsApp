@@ -53,7 +53,6 @@ public class HotNewsFragment extends Fragment {
 
 
     public void initView() {
-
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
 
@@ -83,11 +82,14 @@ public class HotNewsFragment extends Fragment {
 
 
     public void itemtOnClick() {
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HotNews hotNews = hotNewsList.get(position);
                 String url = hotNews.getCoomentUrl();
+
 
                 Config.intent = new Intent(getContext(), WebActivity.class);
                 Config.intent.putExtra("url", url);
