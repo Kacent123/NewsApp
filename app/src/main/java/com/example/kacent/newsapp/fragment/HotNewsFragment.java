@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,6 +21,7 @@ import com.example.kacent.newsapp.bean.HotNews;
 import com.example.kacent.newsapp.ui.WebActivity;
 import com.example.kacent.newsapp.utils.Config;
 import com.example.kacent.newsapp.utils.NetWorkRequest;
+import com.example.kacent.newsapp.view.ReFlashListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 public class HotNewsFragment extends Fragment {
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
-    public ListView listView;
+    public ReFlashListView listView;
     public static RequestQueue mQueue;
     public View view;
 
@@ -43,7 +45,7 @@ public class HotNewsFragment extends Fragment {
 
 
         view = inflater.inflate(R.layout.hot_news, container, false);
-        listView = (ListView) view.findViewById(R.id.hotnews_listview);
+        listView = (ReFlashListView) view.findViewById(R.id.hotnews_listview);
         initView();
 
         return view;
@@ -71,7 +73,7 @@ public class HotNewsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(getContext(), "访问数据错误，请稍后再重新尝试刷新", Toast.LENGTH_SHORT).show();
             }
         });
         mQueue.add(jsonObjectRequest);
