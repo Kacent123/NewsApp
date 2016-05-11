@@ -2,6 +2,7 @@ package com.example.kacent.newsapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,13 +33,13 @@ import java.util.ArrayList;
 /**
  * Created by Kacent on 2016/4/18.
  */
-public class HotNewsFragment extends Fragment {
+public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlashListener{
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
     public ReFlashListView listView;
     public static RequestQueue mQueue;
     public View view;
-
+    JsonObjectRequest jsonObjectRequest;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class HotNewsFragment extends Fragment {
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
+         jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 mjsonObject = jsonObject;
@@ -64,7 +65,6 @@ public class HotNewsFragment extends Fragment {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
                     HotNewsAdapter adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
-
                     itemtOnClick();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -78,6 +78,7 @@ public class HotNewsFragment extends Fragment {
         });
         mQueue.add(jsonObjectRequest);
 
+        listView.setReFlashInterface(this);
     }
 
 
@@ -98,4 +99,13 @@ public class HotNewsFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onReFlash() {
+
+                mQueue.start();
+
+                listView.reflashComplete();
+
+
+    }
 }

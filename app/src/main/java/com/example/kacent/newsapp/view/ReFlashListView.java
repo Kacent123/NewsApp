@@ -14,26 +14,34 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Response;
 import com.example.kacent.newsapp.R;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by kacent on 2016/5/4.
  */
-public class ReFlashListView extends ListView implements AbsListView.OnScrollListener{
+public class ReFlashListView extends ListView implements AbsListView.OnScrollListener {
     View header;
     int headerHeight;
     int firstVisibleItem;
     boolean isReMark;
     int startY;
     int scrollState;
+    ReFlashListener reFlashListener;
     /*
     * 状态 定义
     * */
     int state;
-    final  int NONE=0;
+    final int NONE = 0;
     final int PULL = 1;
     final int RELSE = 2;
     final int REFLASHING = 3;
+
     public ReFlashListView(Context context) {
         super(context);
         initView(context);
@@ -49,9 +57,9 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
         initView(context);
     }
 
-/*
-* 初始化 顶部
-* */
+    /*
+    * 初始化 顶部
+    * */
     public void initView(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -60,7 +68,7 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
         measureView(header);
         headerHeight = header.getMeasuredHeight();
 
-        Log.i("tag","容器高度是"+ headerHeight+"");
+        Log.i("tag", "容器高度是" + headerHeight + "");
 
         topPadding(-headerHeight);
         this.addHeaderView(header);
@@ -83,20 +91,19 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
             height = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         }
 
-        view.measure(width,height);
+        view.measure(width, height);
 
 
     }
-/*设置上布局边距
-* */
+
+    /*设置上布局边距
+    * */
     public void topPadding(int topPadding) {
         header.setPadding(header.getPaddingLeft(), topPadding, header.getPaddingRight(), header.getPaddingBottom());
         header.invalidate();
     }
 
 
-
-    
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         this.scrollState = scrollState;
@@ -124,6 +131,7 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
                 if (state == RELSE) {
                     state = REFLASHING;
                     reFlashView();
+                    reFlashListener.onReFlash();
                 } else if (state == PULL) {
                     state = NONE;
                     isReMark = false;
@@ -216,5 +224,29 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
                 break;
 
         }
+    }
+
+    /**
+     * 获取完数据；
+     */
+    public void reflashComplete() {
+        state = NONE;
+        isReMark = false;
+        reFlashView();
+        TextView lastupdatetime = (TextView) header
+                .findViewById(R.id.header_updatedate);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String time = format.format(date);
+        lastupdatetime.setText(time);
+    }
+
+    public void setReFlashInterface(ReFlashListener reFlashListener) {
+        this.reFlashListener = reFlashListener;
+    }
+
+
+    public interface ReFlashListener {
+        public void onReFlash();
     }
 }
