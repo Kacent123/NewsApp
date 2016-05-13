@@ -99,6 +99,10 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
         });
     }
 
+
+    /*
+    * 下拉刷新 执行方法
+    * */
     @Override
     public void onReFlash() {
 
