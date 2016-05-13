@@ -2,14 +2,12 @@ package com.example.kacent.newsapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -29,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 
 /**
  * Created by Kacent on 2016/4/18.
@@ -40,6 +41,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public static RequestQueue mQueue;
     public View view;
     JsonObjectRequest jsonObjectRequest;
+    public final static String NEWS_KEY = "com.hotnews.bean";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,10 +92,11 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HotNews hotNews = hotNewsList.get(position);
                 String url = hotNews.getCoomentUrl();
-
+                Bundle b = new Bundle();
+                b.putSerializable(NEWS_KEY,hotNews);
 
                 Config.intent = new Intent(getContext(), WebActivity.class);
-                Config.intent.putExtra("url", url);
+                Config.intent.putExtras(b);
                 startActivity(Config.intent);
             }
         });
@@ -101,8 +104,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
 
 
     /*
-    * 下拉刷新 执行方法
-    * */
+    * 下拉刷新 执行方法    * */
     @Override
     public void onReFlash() {
 
@@ -112,4 +114,5 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
 
 
     }
+
 }

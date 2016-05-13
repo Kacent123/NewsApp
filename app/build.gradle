@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
@@ -25,4 +26,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('K:/BigProject/NewsApp/lib/butterknife-7.0.1.jar')
     compile files('K:/BigProject/NewsApp/lib/Volley.jar')
+    compile files('K:/BigProject/NewsApp/libs/MobCommons-2016.0426.1819.jar')
+    compile files('K:/BigProject/NewsApp/libs/MobTools-2016.0426.1819.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-Core-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-QQ-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-QZone-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-SinaWeibo-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-TencentWeibo-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-Wechat-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-Wechat-Core-2.7.2.jar')
+    compile files('K:/BigProject/NewsApp/libs/ShareSDK-Wechat-Moments-2.7.2.jar')
+    compile 'com.android.support:support-v4:23.3.0'
 }
