@@ -5,10 +5,10 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ListView
+    <com.example.kacent.newsapp.view.ReFlashListView
         android:id="@+id/hotnews_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        ></ListView>
+        ></com.example.kacent.newsapp.view.ReFlashListView>
 </LinearLayout>
