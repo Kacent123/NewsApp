@@ -28,11 +28,16 @@ import java.util.Date;
 public class ReFlashListView extends ListView implements AbsListView.OnScrollListener {
     View header;
     int headerHeight;
+
     int firstVisibleItem;
-    boolean isReMark;
+    int visibleItemCount;
+    int totalItemCount;
+
+    boolean isLoding;//底部是否正在读取
+    boolean isReMark;//头部是否正在读取
     int startY;
     int scrollState;
-    ReFlashListener reFlashListener;
+    public ReFlashListener reFlashListener;
     /*
     * 状态 定义
     * */
@@ -107,11 +112,20 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         this.scrollState = scrollState;
+        int tempTotal = firstVisibleItem + visibleItemCount;
+        if (tempTotal == totalItemCount) {
+            Log.i("tag", "已经到达底部");
+            if (!isLoding) {
+
+            }
+        }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         this.firstVisibleItem = firstVisibleItem;
+        this.visibleItemCount = visibleItemCount;
+        this.totalItemCount = totalItemCount;
     }
 
     @Override
