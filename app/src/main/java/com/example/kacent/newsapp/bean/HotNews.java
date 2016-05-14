@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * Created by Kacent on 2016/4/20.
  */
 public class HotNews {
-    public static String HOT_NEWS_URL = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
+    public static String HOT_NEWS_URL = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=1";
+    public static String HOT_NEWS_URL2 = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=2";
 
 
     public int id;

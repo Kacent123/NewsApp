@@ -39,6 +39,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public ReFlashListView listView;
     public static RequestQueue mQueue;
     public View view;
+    public HotNewsAdapter adapter;
     JsonObjectRequest jsonObjectRequest;
     @Nullable
     @Override
@@ -63,8 +64,9 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                 mjsonObject = jsonObject;
                 try {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
-                    HotNewsAdapter adapter = new HotNewsAdapter(getContext(), hotNewsList);
+                   adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
+
                     itemtOnClick();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -111,5 +113,38 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                 listView.reflashComplete();
 
 
+    }
+
+
+    /*
+    * 实现底部读取数据
+    * */
+    @Override
+    public void onFootLoding() {
+        jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL2, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                mjsonObject = jsonObject;
+                try {
+                    ArrayList<HotNews> tempHotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
+                    for(int j=0;j<tempHotNewsList.size();j++) {
+                        hotNewsList.add(tempHotNewsList.get(j));
+                    }
+
+
+                    itemtOnClick();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getContext(), "访问数据错误，请稍后再重新尝试刷新", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mQueue.add(jsonObjectRequest);
+
+        listView.reFlashFootComplete();
     }
 }
