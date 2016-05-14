@@ -11,6 +11,7 @@ import com.example.kacent.newsapp.fragment.HotNewsFragment;
 import com.example.kacent.newsapp.fragment.RecNewsFragment;
 import com.example.kacent.newsapp.fragment.SportsNewsFragment;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
     }
 
     @Override
