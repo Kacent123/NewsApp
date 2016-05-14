@@ -80,7 +80,6 @@ public class WebActivity extends Activity {
         shareImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WebActivity.this, "测试", Toast.LENGTH_SHORT).show();
                 showShare();
             }
         });

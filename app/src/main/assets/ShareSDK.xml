@@ -195,7 +195,7 @@
     	如果目标设备上已经安装了印象笔记客户端，ShareSDK允许应用调用本地API来完成分享，但
     	是需要将应用信息中的“ShareByAppClient”设置为true，此字段默认值为false。
     -->
-    <Evernote
+     <Evernote
         Id="19"
         SortId="19"
         HostType="sandbox"

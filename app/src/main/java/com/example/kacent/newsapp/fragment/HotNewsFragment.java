@@ -34,14 +34,15 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by Kacent on 2016/4/18.
  */
-public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlashListener{
+public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlashListener {
     public ArrayList<HotNews> hotNewsList;
     public JSONObject mjsonObject;
     public ReFlashListView listView;
     public static RequestQueue mQueue;
     public View view;
-    JsonObjectRequest jsonObjectRequest;
     public final static String NEWS_KEY = "com.hotnews.bean";
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,12 +55,15 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
         return view;
     }
 
+    /*
+    * 初始化数据列表
+    * */
 
     public void initView() {
         NetWorkRequest netWorkRequest = new NetWorkRequest();
         mQueue = netWorkRequest.getQueue(getContext());
 
-         jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 mjsonObject = jsonObject;
@@ -83,7 +87,9 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
         listView.setReFlashInterface(this);
     }
 
-
+/*
+* 项点击事件 跳转webview
+* */
     public void itemtOnClick() {
 
 
@@ -93,7 +99,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                 HotNews hotNews = hotNewsList.get(position);
                 String url = hotNews.getCoomentUrl();
                 Bundle b = new Bundle();
-                b.putSerializable(NEWS_KEY,hotNews);
+                b.putSerializable(NEWS_KEY, hotNews);
 
                 Config.intent = new Intent(getContext(), WebActivity.class);
                 Config.intent.putExtras(b);
@@ -108,9 +114,9 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     @Override
     public void onReFlash() {
 
-                mQueue.start();
+        mQueue.start();
 
-                listView.reflashComplete();
+        listView.reflashComplete();
 
 
     }
