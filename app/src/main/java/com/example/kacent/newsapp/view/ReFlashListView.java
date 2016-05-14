@@ -1,6 +1,7 @@
 package com.example.kacent.newsapp.view;
 
 import android.content.Context;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.kacent.newsapp.R;
@@ -27,12 +29,18 @@ import java.util.Date;
  */
 public class ReFlashListView extends ListView implements AbsListView.OnScrollListener {
     View header;
+    View footer;
     int headerHeight;
+
     int firstVisibleItem;
-    boolean isReMark;
+    int lastItemCount;
+    int totalItemCount;
+
+    boolean isLoding;//底部是否正在读取
+    boolean isReMark;//头部是否正在读取
     int startY;
     int scrollState;
-    ReFlashListener reFlashListener;
+    public ReFlashListener reFlashListener;
     /*
     * 状态 定义
     * */
@@ -45,18 +53,35 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
     public ReFlashListView(Context context) {
         super(context);
         initView(context);
+        initFootView();
     }
 
     public ReFlashListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
+        initFootView();
     }
 
     public ReFlashListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
+        initFootView();
     }
 
+
+    /*
+    *
+    * 初始化底部
+    *
+    * */
+
+    public void initFootView() {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        footer = layoutInflater.inflate(R.layout.footer_layout, null);
+        footer.setVisibility(GONE);
+        this.addFooterView(footer);
+    }
     /*
     * 初始化 顶部
     * */
@@ -68,7 +93,6 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
         measureView(header);
         headerHeight = header.getMeasuredHeight();
 
-        Log.i("tag", "容器高度是" + headerHeight + "");
 
         topPadding(-headerHeight);
         this.addHeaderView(header);
@@ -107,11 +131,23 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         this.scrollState = scrollState;
+
+        if (lastItemCount == totalItemCount && scrollState==SCROLL_STATE_IDLE) {
+
+            if (!isLoding) {
+                isLoding = true;
+                footer.setVisibility(VISIBLE);
+                reFlashListener.onFootLoding();
+            }
+
+        }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         this.firstVisibleItem = firstVisibleItem;
+        this.lastItemCount = firstVisibleItem+visibleItemCount;
+        this.totalItemCount = totalItemCount;
     }
 
     @Override
@@ -180,6 +216,7 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
     }
 
 
+
     /*
     * 定义刷新控件的方法
     * */
@@ -227,7 +264,7 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
     }
 
     /**
-     * 获取完数据；
+     * 在头部刷新数据 完成时执行的方法；
      */
     public void reflashComplete() {
         state = NONE;
@@ -241,6 +278,14 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
         lastupdatetime.setText(time);
     }
 
+    /*
+    * 底部数据加载完成 执行方法
+    * */
+    public void reFlashFootComplete() {
+        isLoding = false;
+        footer.setVisibility(GONE);
+    }
+
     public void setReFlashInterface(ReFlashListener reFlashListener) {
         this.reFlashListener = reFlashListener;
     }
@@ -248,5 +293,7 @@ public class ReFlashListView extends ListView implements AbsListView.OnScrollLis
 
     public interface ReFlashListener {
         public void onReFlash();
+
+        public void onFootLoding();
     }
 }

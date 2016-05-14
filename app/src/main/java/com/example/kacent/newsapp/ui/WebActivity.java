@@ -1,16 +1,13 @@
 package com.example.kacent.newsapp.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.kacent.newsapp.R;
 import com.example.kacent.newsapp.bean.HotNews;
@@ -19,6 +16,7 @@ import com.example.kacent.newsapp.utils.Config;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 

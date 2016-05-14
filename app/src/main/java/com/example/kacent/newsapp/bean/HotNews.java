@@ -10,8 +10,10 @@ import java.util.ArrayList;
 /**
  * Created by Kacent on 2016/4/20.
  */
+
 public class HotNews implements Serializable{
     public static String HOT_NEWS_URL = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
+
 
 
     public int id;
