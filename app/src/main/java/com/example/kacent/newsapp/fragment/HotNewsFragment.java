@@ -144,7 +144,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                     }
 
 
-                    itemtOnClick();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
