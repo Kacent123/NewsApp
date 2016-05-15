@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class HotNews implements Serializable{
-    public static String HOT_NEWS_URL = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=";
+    public static String HOT_NEWS_URL = "http://jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&custom_fields=thumb_c,views&dev=1&page=1";
 
 
 

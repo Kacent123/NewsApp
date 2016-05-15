@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,13 @@ import com.example.kacent.newsapp.bean.HotNews;
 import com.example.kacent.newsapp.ui.WebActivity;
 import com.example.kacent.newsapp.utils.Config;
 import com.example.kacent.newsapp.utils.NetWorkRequest;
+import com.example.kacent.newsapp.utils.Utils;
 import com.example.kacent.newsapp.view.ReFlashListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-
 
 
 /**
@@ -39,9 +39,8 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public ReFlashListView listView;
     public static RequestQueue mQueue;
     public View view;
-
+    public String tempLodingUrl;
     public final static String NEWS_KEY = "com.hotnews.bean";
-
 
 
     public HotNewsAdapter adapter;
@@ -73,7 +72,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                 mjsonObject = jsonObject;
                 try {
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
-                   adapter = new HotNewsAdapter(getContext(), hotNewsList);
+                    adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
 
                     itemtOnClick();
@@ -92,9 +91,9 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
         listView.setReFlashInterface(this);
     }
 
-/*
-* 项点击事件 跳转webview
-* */
+    /*
+    * 项点击事件 跳转webview
+    * */
     public void itemtOnClick() {
 
 
@@ -127,24 +126,27 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     }
 
 
-
     /*
     * 实现底部读取数据
     * */
     @Override
     public void onFootLoding() {
-        jsonObjectRequest = new JsonObjectRequest(HotNews.HOT_NEWS_URL, null, new Response.Listener<JSONObject>() {
+
+        if (tempLodingUrl == null) {
+            tempLodingUrl = Utils.updateUrlString(HotNews.HOT_NEWS_URL);
+        }else {
+            tempLodingUrl = Utils.updateUrlString(tempLodingUrl);
+        }
+
+        jsonObjectRequest = new JsonObjectRequest(tempLodingUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 mjsonObject = jsonObject;
                 try {
                     ArrayList<HotNews> tempHotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
-                    for(int j=0;j<tempHotNewsList.size();j++) {
+                    for (int j = 0; j < tempHotNewsList.size(); j++) {
                         hotNewsList.add(tempHotNewsList.get(j));
                     }
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

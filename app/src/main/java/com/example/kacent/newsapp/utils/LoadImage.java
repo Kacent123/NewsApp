@@ -13,10 +13,8 @@ public class LoadImage {
 
     public void Load(NetworkImageView view, String url,BitmapCache bitmapCache) {
 
-
-
         ImageLoader imageLoader = new ImageLoader(HotNewsFragment.mQueue, bitmapCache);
-        view.setDefaultImageResId(R.mipmap.ic_launcher);
+        view.setDefaultImageResId(R.drawable.config_image);
         view.setErrorImageResId(R.drawable.hema);
         view.setImageUrl(url,imageLoader);
 
