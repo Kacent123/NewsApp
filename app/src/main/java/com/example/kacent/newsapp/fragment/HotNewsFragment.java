@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public static RequestQueue mQueue;
     public View view;
     public String tempLodingUrl;
-    public final static String NEWS_KEY = "com.hotnews.bean";
+    public final static String HOT_NEWS_KEY = "com.hotnews.bean";
 
 
     public HotNewsAdapter adapter;
@@ -103,9 +102,10 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                 HotNews hotNews = hotNewsList.get(position);
                 String url = hotNews.getCoomentUrl();
                 Bundle b = new Bundle();
-                b.putSerializable(NEWS_KEY, hotNews);
-
+                b.putSerializable(HOT_NEWS_KEY, hotNews);
+                Config.intent = null;
                 Config.intent = new Intent(getContext(), WebActivity.class);
+                Config.intent.putExtra(Config.WEB_KEY, HOT_NEWS_KEY);
                 Config.intent.putExtras(b);
                 startActivity(Config.intent);
             }

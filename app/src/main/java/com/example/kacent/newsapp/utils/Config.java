@@ -7,4 +7,5 @@ import android.content.Intent;
  */
 public class Config {
     public static Intent intent;
+    public static final String WEB_KEY = "WEB_KEY";
 }

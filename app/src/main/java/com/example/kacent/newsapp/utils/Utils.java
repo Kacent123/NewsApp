@@ -1,7 +1,5 @@
 package com.example.kacent.newsapp.utils;
 
-import android.provider.Settings;
-import android.util.Log;
 
 /**
  * Created by kacent on 2016/5/15.

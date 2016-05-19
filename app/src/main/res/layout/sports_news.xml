@@ -6,8 +6,9 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="体育新闻" />
+    <com.example.kacent.newsapp.view.ReFlashListView
+        android:id="@+id/spnews_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></com.example.kacent.newsapp.view.ReFlashListView>
 </LinearLayout>
