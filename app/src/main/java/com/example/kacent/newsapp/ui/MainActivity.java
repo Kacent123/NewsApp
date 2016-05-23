@@ -71,7 +71,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         listFramgnet.add(sportsNewsFragment);
         NewFragmentAdapter newFragmentAdapter = new NewFragmentAdapter(getSupportFragmentManager(), listFramgnet);
         viewPager.setAdapter(newFragmentAdapter);
-
+        onPageSelected(0);
+        viewPager.setCurrentItem(0);
 
     }
 
