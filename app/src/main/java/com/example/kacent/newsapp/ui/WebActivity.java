@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.kacent.newsapp.R;
 import com.example.kacent.newsapp.bean.HotNews;
@@ -36,7 +37,9 @@ public class WebActivity extends Activity {
     ProgressBar bar;
     @Bind(R.id.share_image)
     ImageView shareImage;
+
     private HotNews hotnews;
+
     private ReNews reNews;
     private SportNews sportNews;
     private String url;

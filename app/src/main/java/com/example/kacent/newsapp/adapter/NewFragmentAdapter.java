@@ -32,4 +32,5 @@ public class NewFragmentAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return listFragment.size();
     }
+
 }
