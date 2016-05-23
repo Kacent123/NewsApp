@@ -18,8 +18,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <!--主页面配置-->
-        <activity android:name="com.example.kacent.newsapp.ui.MainActivity"
+        <!--动画启动页-->
+        <activity android:name="com.example.kacent.newsapp.ui.StartActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,14 @@
             </intent-filter>
 
         </activity>
+
+        <!--主页面配置-->
+        <activity android:name="com.example.kacent.newsapp.ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+
+
         <!--webview页面-->
        <activity android:name=".ui.WebActivity"/>
 
