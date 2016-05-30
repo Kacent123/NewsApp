@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -40,7 +41,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public View view;
     public String tempLodingUrl;
     public final static String HOT_NEWS_KEY = "com.hotnews.bean";
-
+    public ProgressBar progressBar;
 
     public HotNewsAdapter adapter;
     JsonObjectRequest jsonObjectRequest;
@@ -52,6 +53,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
 
         view = inflater.inflate(R.layout.hot_news, container, false);
         listView = (ReFlashListView) view.findViewById(R.id.hotnews_listview);
+        progressBar = (ProgressBar) view.findViewById(R.id.hot_news_progress);
         initView();
 
         return view;
@@ -73,7 +75,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
                     hotNewsList = HotNews.prase(mjsonObject.getJSONArray("posts"));
                     adapter = new HotNewsAdapter(getContext(), hotNewsList);
                     listView.setAdapter(adapter);
-
+                    progressBar.setVisibility(View.GONE);
                     itemtOnClick();
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,8 +1,11 @@
 package com.example.kacent.newsapp.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -37,7 +40,8 @@ public class WebActivity extends Activity {
     ProgressBar bar;
     @Bind(R.id.share_image)
     ImageView shareImage;
-
+    @Bind(R.id.go_back_image)
+    ImageView goBackImage;
     private HotNews hotnews;
 
     private ReNews reNews;
@@ -77,6 +81,16 @@ public class WebActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
+                return true;
+            }
+        });
+        webView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
+                if (keycode==keyEvent.KEYCODE_BACK && webView.canGoBack()) {
+                    webView.goBack();
+                    return true;
+                }
                 return true;
             }
         });
@@ -120,6 +134,20 @@ public class WebActivity extends Activity {
                         break;
                 }
 
+            }
+        });
+
+        goBackImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Handler handler = new Handler();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 

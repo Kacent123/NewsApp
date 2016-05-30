@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">河马新闻</string>
-    <string name="new1">热闻</string>
-    <string name="new2">娱乐</string>
-    <string name="new3">体育</string>
+    <string name="app_name" translatable="false">河马新闻</string>
+    <string name="new1" translatable="false">热闻</string>
+    <string name="new2" translatable="false">娱乐</string>
+    <string name="new3" translatable="false">体育</string>
 </resources>

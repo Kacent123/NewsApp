@@ -4,38 +4,64 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-
-
+    <ProgressBar
+        android:id="@+id/webView_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="3dip"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/web_progress"
+        android:layout_alignTop="@+id/webView"
+        />
 
 
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
-    <ProgressBar
-        android:id="@+id/webView_progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="5dip"
-        android:indeterminateOnly="false"
-        android:progressDrawable="@drawable/web_progress"
-        android:layout_alignTop="@+id/webView"
-        />
-      <RelativeLayout
+        android:layout_height="match_parent"
+        ></WebView>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-          android:layout_alignBottom="@+id/webView"
-          android:background="@android:color/background_dark"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/webView"
+        android:background="#F0F0F0"
         >
 
+        <ImageView
+            android:id="@+id/go_back_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/go_back"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="25px"
+            android:gravity="center"
+            android:text="返回"
+            android:layout_toRightOf="@+id/go_back_image"
+            />
         <ImageView
             android:id="@+id/share_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/share"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="分享"
+            android:textSize="25px"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/share_image"
+            />
+
     </RelativeLayout>
+
+
+
 
 </RelativeLayout>

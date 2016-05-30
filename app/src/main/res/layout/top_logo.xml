@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="30dp"
     android:gravity="center_vertical"
     android:background="@android:color/holo_red_dark"
     >
@@ -12,7 +12,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:id="@+id/top_logo"
-        android:src="@drawable/kid"
+        android:src="@drawable/hema_conor"
         />
     <TextView
         android:layout_width="wrap_content"
