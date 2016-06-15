@@ -15,6 +15,9 @@ import com.example.kacent.newsapp.utils.LoadImage;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by Kacent on 2016/4/20.
  */
@@ -50,12 +53,7 @@ public class HotNewsAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.hot_list_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.newsImage = (NetworkImageView) convertView.findViewById(R.id.news_image);
-            viewHolder.newsTitle = (TextView) convertView.findViewById(R.id.news_title);
-            viewHolder.newsAuthor = (TextView) convertView.findViewById(R.id.news_author);
-            viewHolder.newsLitleTitle = (TextView) convertView.findViewById(R.id.news_litleTitle);
-            viewHolder.newsCommentCount = (TextView) convertView.findViewById(R.id.news_comment_count);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -74,8 +72,19 @@ public class HotNewsAdapter extends BaseAdapter {
 
 
     public class ViewHolder {
+        @Bind(R.id.news_image)
+        NetworkImageView newsImage;
+        @Bind(R.id.news_title)
+        TextView newsTitle;
+        @Bind(R.id.news_litleTitle)
+        TextView newsLitleTitle;
+        @Bind(R.id.news_author)
+        TextView newsAuthor;
+        @Bind(R.id.news_comment_count)
+        TextView newsCommentCount;
 
-        public NetworkImageView newsImage;
-        public TextView newsTitle, newsLitleTitle, newsAuthor, newsCommentCount;
+        public ViewHolder(View view) {
+            ButterKnife.bind(this,view);
+        }
     }
 }

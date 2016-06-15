@@ -2,7 +2,7 @@ package com.example.kacent.newsapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +46,7 @@ public class HotNewsFragment extends Fragment implements ReFlashListView.ReFlash
     public HotNewsAdapter adapter;
     JsonObjectRequest jsonObjectRequest;
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

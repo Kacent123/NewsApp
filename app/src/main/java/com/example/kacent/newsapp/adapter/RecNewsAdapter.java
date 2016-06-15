@@ -15,6 +15,9 @@ import com.example.kacent.newsapp.utils.LoadImage;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by kacent on 2016/5/17.
  */
@@ -24,12 +27,13 @@ public class RecNewsAdapter extends BaseAdapter {
     public LoadImage loadImage;
     public BitmapCache bitmapCache;
 
-    public  RecNewsAdapter(Context context, ArrayList<ReNews> reNewsArrayList) {
+    public RecNewsAdapter(Context context, ArrayList<ReNews> reNewsArrayList) {
         this.reNewsArrayList = reNewsArrayList;
         layoutInflater = LayoutInflater.from(context);
 
         bitmapCache = new BitmapCache();
     }
+
     @Override
     public int getCount() {
         return reNewsArrayList.size();
@@ -50,13 +54,10 @@ public class RecNewsAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (view == null) {
             view = layoutInflater.inflate(R.layout.re_list_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.recTitle = (TextView) view.findViewById(R.id.recnews_title);
-            viewHolder.recDes = (TextView) view.findViewById(R.id.recnews_description);
-            viewHolder.recCtime = (TextView) view.findViewById(R.id.recnews_ctime);
-            viewHolder.recImage = (NetworkImageView) view.findViewById(R.id.recnews_image);
+            viewHolder = new ViewHolder(view);
+
             view.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         ReNews reNews = reNewsArrayList.get(i);
@@ -64,13 +65,23 @@ public class RecNewsAdapter extends BaseAdapter {
         viewHolder.recDes.setText(reNews.getDescription());
         viewHolder.recCtime.setText(reNews.getCreateData());
         loadImage = new LoadImage();
-        loadImage.Load2(viewHolder.recImage,reNews.picUrl,bitmapCache);
+        loadImage.Load2(viewHolder.recImage, reNews.picUrl, bitmapCache);
         return view;
     }
 
-    class  ViewHolder{
-        TextView recTitle,recDes, recCtime;
+    class ViewHolder {
+        @Bind(R.id.recnews_title)
+        TextView recTitle;
+        @Bind(R.id.recnews_description)
+        TextView recDes;
+        @Bind(R.id.recnews_ctime)
+        TextView recCtime;
+        @Bind(R.id.recnews_image)
         NetworkImageView recImage;
 
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

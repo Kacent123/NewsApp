@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
@@ -59,7 +58,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     private void initView() {
-        ButterKnife.bind(this);
+            ButterKnife.bind(this);
 
         HotNewsFragment hotNewsFragment = new HotNewsFragment();
         RecNewsFragment recNewsFragment = new RecNewsFragment();

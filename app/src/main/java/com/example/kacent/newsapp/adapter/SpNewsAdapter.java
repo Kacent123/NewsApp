@@ -16,6 +16,9 @@ import com.example.kacent.newsapp.utils.LoadImage;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by kacent on 2016/5/17.
  */
@@ -51,11 +54,8 @@ public class SpNewsAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (view == null) {
             view = layoutInflater.inflate(R.layout.sp_list_item, null);
-            viewHolder = new ViewHolder();
-            viewHolder.recTitle = (TextView) view.findViewById(R.id.recnews_title);
-            viewHolder.recDes = (TextView) view.findViewById(R.id.recnews_description);
-            viewHolder.recCtime = (TextView) view.findViewById(R.id.recnews_ctime);
-            viewHolder.recImage = (NetworkImageView) view.findViewById(R.id.recnews_image);
+            viewHolder = new ViewHolder(view);
+
             view.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) view.getTag();
@@ -70,8 +70,18 @@ public class SpNewsAdapter extends BaseAdapter {
     }
 
     class  ViewHolder{
-        TextView recTitle,recDes, recCtime;
+        @Bind(R.id.recnews_title)
+        TextView recTitle;
+        @Bind(R.id.recnews_description)
+        TextView recDes;
+        @Bind(R.id.recnews_ctime)
+        TextView recCtime;
+        @Bind(R.id.recnews_image)
         NetworkImageView recImage;
 
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this,view);
+        }
     }
 }

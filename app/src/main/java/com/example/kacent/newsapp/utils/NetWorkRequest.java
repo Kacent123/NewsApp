@@ -10,7 +10,12 @@ import com.android.volley.toolbox.Volley;
  */
 public class NetWorkRequest {
 
+
     public RequestQueue getQueue(Context context) {
         return Volley.newRequestQueue(context);
+    }
+
+    public static void cancelAll() {
+
     }
 }
